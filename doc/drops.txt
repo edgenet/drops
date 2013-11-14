@@ -1,0 +1,28 @@
+drops(7)
+========
+
+
+NAME
+----
+drops - drops file sharing agent
+
+
+SYNOPSIS
+--------
+----
+#include <drops.h>
+
+cc ['flags'] 'files' -lzmq -lczmq -lzyre -ldrops ['libraries']
+----
+
+DESCRIPTION
+-----------
+
+* linkdrops:drops_agent[3] - start and stop drops agent
+
+Ownership and Contributing
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+drops is owned by all its authors and contributors. This is an open source
+project licensed under the LGPLv3. To contribute to drops please read the
+C4.1 process at http://rfc.zeromq.org/spec:22, which we use.

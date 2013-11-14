@@ -1,0 +1,33 @@
+#################################################################
+#   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
+#   Please read the README.txt file in the model directory.     #
+#################################################################
+
+CC=gcc
+# replace the following with wherever you have installed libzmq
+PREFIX=c:/mingw/msys/1.0/local
+INCDIR=-I$(PREFIX)/include -I.
+LIBDIR=-L$(PREFIX)/lib
+CFLAGS=-Wall -Os -g -DDLL_EXPORT $(INCDIR)
+
+OBJS = drops_agent.o
+
+%.o: ../../src/%.c
+    $(CC) -c -o $@ $< $(CFLAGS)
+
+all: libczmq.dll czmq_selftest.exe
+
+libczmq.dll: $(OBJS)
+    gcc -shared -o $@ $(OBJS) -Wl,--out-implib,$@.a $(LIBDIR) -lzmq -lws2_32 -liphlpapi
+
+# the test functions are not exported into the DLL
+czmq_selftest.exe: czmq_selftest.o $(OBJS)
+    gcc -o $@ $^ $(LIBDIR) -lzmq -lws2_32 -liphlpapi
+
+clean:
+    del *.o *.a *.dll *.exe
+
+#################################################################
+#   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
+#   Please read the README.txt file in the model directory.     #
+#################################################################

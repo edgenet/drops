@@ -1,0 +1,42 @@
+drops_agent(3)
+==============
+
+NAME
+----
+drops_agent - work with background drops agent
+
+SYNOPSIS
+--------
+----
+//  Create a new drops_agent
+drops_agent_t *
+    drops_agent_new (void);
+
+//  Destroy the drops_agent
+void
+    drops_agent_destroy (drops_agent_t **self_p);
+
+//  Self test of this class
+int
+    drops_agent_test (bool verbose);
+----
+
+DESCRIPTION
+-----------
+
+The drops_agent class starts a background drops agent.
+
+
+EXAMPLE
+-------
+.From drops_agent_test method
+----
+    //  Simple create/destroy test
+    drops_agent_t *self = drops_agent_new ();
+    assert (self);
+    drops_agent_destroy (&self);
+----
+
+SEE ALSO
+--------
+linkdrops:drops[7]
