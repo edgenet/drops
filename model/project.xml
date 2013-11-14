@@ -1,0 +1,4 @@
+<project name = "drops">
+    <header name = "drops" />
+    <class name = "drops_agent" />
+</project>

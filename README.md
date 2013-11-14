@@ -40,3 +40,6 @@ The libdrops library has these primary dependencies:
 * ZeroMQ v4 (libzmq) from http://zeromq.org
 * Sodium (libsodium) from https://github.com/jedisct1/libsodium
 
+## Ownership and Contributing
+
+**drops** is owned by all its authors and contributors. This is an open source project licensed under the LGPLv3. To contribute to drops please read the [C4.1 process](http://rfc.zeromq.org/spec:22) that we use.

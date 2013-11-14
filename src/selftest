@@ -1,0 +1,19 @@
+#! /bin/bash
+#
+#   Run selftests and check memory
+
+#   Valgrind command
+VG="valgrind --tool=memcheck --leak-check=full --show-reachable=yes --suppressions=valgrind.supp"
+
+gcc -g -o drops_selftest drops*.c ${CFLAGS} ${LDFLAGS} -DHAVE_CONFIG_H -lczmq -lzmq -lcrypto -luuid -lsodium
+
+if [ $? -eq 0 ]; then
+    if [ "$1" == "-q" ]; then
+        ./drops_selftest
+        exit
+    else
+        $VG ./drops_selftest
+    fi
+fi
+rm -f vgcore.*
+
