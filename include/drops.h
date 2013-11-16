@@ -10,9 +10,9 @@
 
 //  DROPS version macros for compile-time API detection
 
-#define DROPS_VERSION_MAJOR 1
-#define DROPS_VERSION_MINOR 3
-#define DROPS_VERSION_PATCH 0
+#define DROPS_VERSION_MAJOR 0
+#define DROPS_VERSION_MINOR 0
+#define DROPS_VERSION_PATCH 1
 
 #define DROPS_MAKE_VERSION(major, minor, patch) \
     ((major) * 10000 + (minor) * 100 + (patch))
@@ -20,8 +20,8 @@
     DROPS_MAKE_VERSION(DROPS_VERSION_MAJOR, DROPS_VERSION_MINOR, DROPS_VERSION_PATCH)
 
 #include <czmq.h>
-#if CZMQ_VERSION < 20003
-#   error "drops needs CZMQ/2.0.3 or later"
+#if CZMQ_VERSION < 20100
+#   error "drops needs CZMQ/2.1.0 or later"
 #endif
 
 #include <zyre.h>
