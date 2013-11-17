@@ -8,6 +8,7 @@ cmake_minimum_required (VERSION 2.8)
 project (drops)
 
 set (SOURCES_files_Source_Files
+    src/drops.c
     src/drops_agent.c
 )
 source_group ("Source Files" FILES ${SOURCES_files_Source_Files})

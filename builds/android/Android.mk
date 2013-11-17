@@ -20,7 +20,7 @@ include $(PREBUILT_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := drops
 LOCAL_C_INCLUDES := ../../include $(LIBZMQ)/include
-LOCAL_SRC_FILES := drops_agent.c
+LOCAL_SRC_FILES := drops.c drops_agent.c
 LOCAL_SHARED_LIBRARIES := zmq
 include $(BUILD_SHARED_LIBRARY)
 

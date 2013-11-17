@@ -16,6 +16,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\drops.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\drops_agent.c">
       <Filter>Source Files</Filter>
     </ClCompile>
