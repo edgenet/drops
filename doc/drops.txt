@@ -1,28 +1,51 @@
-drops(7)
+drops(3)
 ========
-
 
 NAME
 ----
-drops - drops file sharing agent
-
+drops - start/stop drops file sharing service
 
 SYNOPSIS
 --------
 ----
-#include <drops.h>
+//  Constructor, creates a new drops instance running on the specified
+//  directory. The instance runs in the background until you destroy it.
+CZMQ_EXPORT drops_t *
+    drops_new (const char *directory);
 
-cc ['flags'] 'files' -lzmq -lczmq -lzyre -ldrops ['libraries']
+//  Destructor, ends and destroys a drops service.
+CZMQ_EXPORT void
+    drops_destroy (drops_t **self_p);
+
+//  Self test of this class
+CZMQ_EXPORT void
+    drops_test (bool verbose);
 ----
 
 DESCRIPTION
 -----------
 
-* linkdrops:drops_agent[3] - start and stop drops agent
+To be written.
 
-Ownership and Contributing
-~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-drops is owned by all its authors and contributors. This is an open source
-project licensed under the LGPLv3. To contribute to drops please read the
-C4.1 process at http://rfc.zeromq.org/spec:22, which we use.
+EXAMPLE
+-------
+.From drops_test method
+----
+    //  Create temporary directory for test files
+#   define TESTDIR ".test_drops"
+    zsys_dir_create (TESTDIR);
+
+    //  Create and destroy an drops instance
+    drops_t *drops = drops_new (TESTDIR);
+    drops_destroy (&drops);
+
+    //  Delete all test files
+    zdir_t *dir = zdir_new (TESTDIR, NULL);
+    zdir_remove (dir, true);
+    zdir_destroy (&dir);
+----
+
+SEE ALSO
+--------
+linkdrops:drops[7]

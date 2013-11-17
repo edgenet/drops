@@ -11,6 +11,7 @@
 *.so
 *.so.*
 *.dylib
+*.lo
 
 # Executables
 *.exe
@@ -27,8 +28,8 @@ config/
 configure
 doc/Makefile
 doc/Makefile.in
-doc/drops.7
-doc/drops_agent.3
+doc/*.3
+doc/*.7
 libtool
 src/.deps/
 src/.libs/

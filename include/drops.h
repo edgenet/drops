@@ -1,5 +1,5 @@
 /*  =========================================================================
-    drops.h - drops library API
+    drops - start/stop drops file sharing service
 
     Copyright the Contributors as noted in the AUTHORS file.
     This file is part of edgenet and is licensed per the LICENSE file.
@@ -29,6 +29,32 @@
 #   error "drops needs Zyre/1.1.0 or later"
 #endif
 
-#include "drops_agent.h"
+//  The public API consists of the "drops_t" class
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct _drops_t drops_t;
+
+//  @interface
+//  Constructor, creates a new drops instance running on the specified
+//  directory. The instance runs in the background until you destroy it.
+CZMQ_EXPORT drops_t *
+    drops_new (const char *directory);
+
+//  Destructor, ends and destroys a drops service.
+CZMQ_EXPORT void
+    drops_destroy (drops_t **self_p);
+
+//  Self test of this class
+CZMQ_EXPORT void
+    drops_test (bool verbose);
+//  @end
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

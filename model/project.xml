@@ -1,4 +1,4 @@
 <project name = "drops">
-    <header name = "drops" />
-    <class name = "drops_agent" />
+    <class name = "drops" />
+    <class name = "drops_agent" private = "1" />
 </project>

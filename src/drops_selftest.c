@@ -6,7 +6,7 @@
     =========================================================================
 */
 
-#include "../include/drops.h"
+#include "drops_classes.h"
 
 int main (int argc, char *argv [])
 {
@@ -18,6 +18,7 @@ int main (int argc, char *argv [])
 
     printf ("Running self tests...\n");
     drops_agent_test (verbose);
+    drops_test (verbose);
     printf ("Tests passed OK\n");
     return 0;
 }

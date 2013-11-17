@@ -9,10 +9,11 @@ pkgconfig_DATA = libdrops.pc
 
 include_HEADERS = \
     ../include/drops.h \
-    ../include/drops_agent.h
+    drops_agent.h
 
 libdrops_la_SOURCES = \
     platform.h \
+    drops.c \
     drops_agent.c
 
 AM_CFLAGS = -g
