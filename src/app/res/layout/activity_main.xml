@@ -15,6 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:textOff="@string/sync_button_off"
-        android:textOn="@string/sync_button_on" />
+        android:textOn="@string/sync_button_on"
+        android:onClick="onSyncToggleClicked" />
 
 </RelativeLayout>

@@ -3,6 +3,8 @@ package theedg.es.drops;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 
@@ -19,5 +21,17 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
+    public void onSyncToggleClicked(View view) {
+        // Check if the toggle button is on.
+        ToggleButton button = (ToggleButton) view;
+        boolean on = button.isChecked();
+
+        if (on) {
+            // turn sync on
+        } else {
+            // turn sync off
+        }
+    }
+
 }
