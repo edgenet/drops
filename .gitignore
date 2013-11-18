@@ -52,3 +52,5 @@ src/test-suite.log
 # generated directories
 src/app/bin/
 src/app/gen/
+src/app/obj/
+src/app/local.properties
