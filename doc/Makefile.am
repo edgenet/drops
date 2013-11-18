@@ -4,8 +4,7 @@
 #################################################################
 MAN1 =
 MAN3 = \
-    drops.3 \
-    drops_agent.3
+    drops.3
 MAN7 = drops.7
 MAN_DOC = $(MAN1) $(MAN3) $(MAN7)
 
