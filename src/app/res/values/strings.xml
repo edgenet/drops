@@ -3,6 +3,7 @@
 
     <string name="app_name">Drops</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="sync_button_off">Off</string>
+    <string name="sync_button_on">On</string>
 
 </resources>
