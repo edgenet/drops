@@ -46,3 +46,9 @@ src/platform.h.in
 src/platform.h.in~
 src/stamp-h1
 src/test-suite.log
+
+## Android
+
+# generated directories
+src/app/bin/
+src/app/gen/
