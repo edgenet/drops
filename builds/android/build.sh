@@ -1,58 +1,37 @@
-#! /bin/bash
+#!/bin/bash
 #
-#   Does an NDK build by creating the necessary JNI directory
-#   and copying the libzmq source files into a temporary tree.
-#   It then builds libczmq.so and places a symlink in this
-#   directory.
-#
-#   The clean.sh script restores the libczmq environment to its
-#   former state.
+# Build all dependencies with the proper options so that the NDK can
+# find them.
 
-SRC_DIR="../../src/"
-JNI_DIR="../../src/jni"
+MAKE_CORES=1
+OUTPUT_DIR="`pwd`/output"
 
-NDK_BUILD=`which ndk-build`
+CPPFLAGS="-fPIC -I$OUTPUT_DIR/include"
+LDFLAGS=-L$OUTPUT_DIR/lib
+LIBS=-lgcc
+CONFIGURE_FLAGS="--enable-static
+                 --disable-shared
+                 --host=arm-linux-androidabi
+                 --prefix=$OUTPUT_DIR"
 
-if [ -z "$NDK_BUILD" ]; then
-    echo "Must have ndk-build in your path"
-    exit 1
-fi
+# libsodium
+cd libsodium
+./autogen.sh && ./configure $CONFIGURE_FLAGS && make -j$MAKE_CORES check && make install
+cd ..
 
-if [ -z "$LIBZMQ" ]; then
-	echo "You must export variable LIBZMQ to point to zmq library root folder!"
-	exit 2
-fi
+# libzmq
+cd libzmq
+./autogen.sh && ./configure $CONFIGURE_FLAGS && make -j$MAKE_CORES check && make install
+cd ..
 
-if [ ! -e $LIBZMQ/builds/android/libzmq.so ]; then
-	echo "You must build libzmq for android"
-	exit 3
-fi
+# CZMQ
+cd czmq
+./autogen.sh && ./configure $CONFIGURE_FLAGS && make -j$MAKE_CORES check && make install
+cd ..
 
-if [ ! -d $JNI_DIR ]; then
-    mkdir $JNI_DIR
-fi
-
-for i in `ls $SRC_DIR`; do
-    if [ -f $SRC_DIR/$i -a ! -f $JNI_DIR/$i ]; then
-        echo "copying $SRC_DIR/$i --> $JNI_DIR/$i"
-        cp $SRC_DIR/$i $JNI_DIR/$i
-    fi
-done
-
-cp Android.mk $JNI_DIR;
-cp Application.mk $JNI_DIR
-
-ln -s $LIBZMQ/builds/android/libzmq.so $JNI_DIR/libzmq.so
-
-pushd .
-cd $JNI_DIR
-echo "Current Working dir: `pwd`"
-$NDK_BUILD
-popd
-
-if [ -f ../../src/libs/armeabi/libczmq.so ]; then
-	echo "Symlinking ../../src/libs/armeabi/libczmq.so --> ./libczmq.so"
-	ln -s ../../src/libs/armeabi/libczmq.so ./libczmq.so
-fi
+# Zyre
+cd zyre
+./autogen.sh && ./configure $CONFIGURE_FLAGS && make -j$MAKE_CORES check && make install
+cd ..
 
 exit 0

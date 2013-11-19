@@ -54,3 +54,10 @@ src/app/bin/
 src/app/gen/
 src/app/obj/
 src/app/local.properties
+
+# dependencies
+builds/android/libsodium
+builds/android/libzmq
+builds/android/czmq
+builds/android/zyre
+builds/android/output
