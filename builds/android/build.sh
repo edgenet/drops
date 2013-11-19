@@ -55,5 +55,4 @@ if [ -f ../../src/libs/armeabi/libczmq.so ]; then
 	ln -s ../../src/libs/armeabi/libczmq.so ./libczmq.so
 fi
 
-
 exit 0

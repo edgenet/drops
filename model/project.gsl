@@ -3,7 +3,8 @@
 .#  is licensed under MIT/X11.
 .#
 .include "build-cmake.gsl"
-.include "build-android.gsl"
+# hand-built for now
+#.include "build-android.gsl"
 .include "build-mingw32.gsl"
 .include "build-vcproj.gsl"
 .include "build-vcxproj.gsl"
