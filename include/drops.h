@@ -41,7 +41,7 @@ typedef struct _drops_t drops_t;
 //  Constructor, creates a new drops instance running on the specified
 //  directory. The instance runs in the background until you destroy it.
 CZMQ_EXPORT drops_t *
-    drops_new (const char *directory);
+    drops_new (const char *path);
 
 //  Destructor, ends and destroys a drops service.
 CZMQ_EXPORT void

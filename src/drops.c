@@ -28,7 +28,7 @@ struct _drops_t {
 //  Constructor, creates a new drops agent.
 
 drops_t *
-drops_new (const char *directory)
+drops_new (const char *path)
 {
     drops_t *self = (drops_t *) zmalloc (sizeof (drops_t));
     assert (self);
@@ -37,6 +37,9 @@ drops_new (const char *directory)
     self->ctx = zctx_new ();
     self->pipe = zthread_fork (self->ctx, drops_agent_main, NULL);
     if (self->pipe) {
+        //  Pass path to drops agent as startup argument
+        zstr_send (self->pipe, path);
+        //  Wait for handshake from agent telling us it's ready
         char *status = zstr_recv (self->pipe);
         if (strneq (status, "OK"))
             drops_destroy (&self);

@@ -3,9 +3,8 @@
 #   Please read the README.txt file in the model directory.     #
 #################################################################
 MAN1 =
-MAN3 = \
-    drops.3
-MAN7 = drops.7
+MAN3 = drops.3
+MAN7 = 
 MAN_DOC = $(MAN1) $(MAN3) $(MAN7)
 
 MAN_TXT = $(MAN1:%.1=%.txt)
