@@ -12,6 +12,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drops = new Drops();
     }
 
 
@@ -28,10 +30,12 @@ public class MainActivity extends Activity {
         boolean on = button.isChecked();
 
         if (on) {
-            // turn sync on
+            drops.start();
         } else {
-            // turn sync off
+            drops.stop();
         }
     }
+
+    private Drops drops;
 
 }

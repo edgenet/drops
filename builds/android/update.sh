@@ -3,6 +3,16 @@
 # Clones all the dependencies, or pulls from master if they already
 # exist. Run from builds/android
 
+# libuuid
+if [ -d "e2fsprogs" ]; then
+  cd e2fsprogs
+  git pull
+  cd ..
+else
+  git clone https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
+fi
+
+# not used yet
 if [ -d "libsodium" ]; then
   cd libsodium
   git pull
