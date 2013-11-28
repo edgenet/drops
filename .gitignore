@@ -59,5 +59,6 @@ src/app/local.properties
 builds/android/libsodium
 builds/android/libzmq
 builds/android/czmq
+builds/android/e2fsprogs
 builds/android/zyre
-builds/android/output
+src/app/jni/output
