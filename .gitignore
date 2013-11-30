@@ -31,8 +31,8 @@ doc/Makefile.in
 doc/*.3
 doc/*.7
 libtool
-src/.deps/
-src/.libs/
+.deps
+.libs
 src/Makefile
 src/Makefile.in
 src/drops_agent.lo
@@ -46,6 +46,7 @@ src/platform.h.in
 src/platform.h.in~
 src/stamp-h1
 src/test-suite.log
+examples/dropsd
 
 ## Android
 

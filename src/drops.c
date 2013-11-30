@@ -25,7 +25,7 @@ struct _drops_t {
 
 
 //  ---------------------------------------------------------------------
-//  Constructor, creates a new drops agent.
+//  Constructor, creates a new drops agent
 
 drops_t *
 drops_new (const char *path)
@@ -52,8 +52,7 @@ drops_new (const char *path)
 
 
 //  ---------------------------------------------------------------------
-//  Destructor, destroys the agent. At present this is the only way to
-//  stop the drops agent.
+//  Destructor, ends and destroys a drops service
 
 void
 drops_destroy (drops_t **self_p)
@@ -70,6 +69,29 @@ drops_destroy (drops_t **self_p)
         free (self);
         *self_p = NULL;
     }
+}
+
+
+//  ---------------------------------------------------------------------
+//  Receive next message from drops instance
+
+zmsg_t *
+drops_recv (drops_t *self)
+{
+    assert (self);
+    zmsg_t *msg = zmsg_recv (self->pipe);
+    return msg;
+}
+
+
+//  ---------------------------------------------------------------------
+//  Return handle to the drops instance, for polling
+
+void *
+drops_socket (drops_t *self)
+{
+    assert (self);
+    return self->pipe;
 }
 
 
