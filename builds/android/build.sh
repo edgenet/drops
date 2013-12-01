@@ -5,7 +5,7 @@
 
 export MAKE_CORES=8
 export OUTPUT="`pwd`/../../src/app/jni/output"
-export PATH=/home/shancat/bin/toolchain/bin:$PATH
+export PATH=$TOOLCHAIN/bin:$PATH
 
 export CC="arm-linux-androideabi-gcc"
 export CXX="arm-linux-androideabi-g++"
