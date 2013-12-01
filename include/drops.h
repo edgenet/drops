@@ -38,14 +38,21 @@ extern "C" {
 typedef struct _drops_t drops_t;
 
 //  @interface
-//  Constructor, creates a new drops instance running on the specified
-//  directory. The instance runs in the background until you destroy it.
+//  Constructor, creates a new drops agent
 CZMQ_EXPORT drops_t *
     drops_new (const char *path);
 
-//  Destructor, ends and destroys a drops service.
+//  Destructor, ends and destroys a drops service
 CZMQ_EXPORT void
     drops_destroy (drops_t **self_p);
+
+//  Receive next message from drops agent
+CZMQ_EXPORT zmsg_t *
+    drops_recv (drops_t *self);
+
+//  Return handle to the drops agent, for polling
+CZMQ_EXPORT void *
+    drops_socket (drops_t *self);
 
 //  Self test of this class
 CZMQ_EXPORT void

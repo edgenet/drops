@@ -23,6 +23,7 @@ typedef struct {
 static s_agent_t *s_agent_new (zctx_t *ctx, void *pipe);
 static void s_agent_destroy (s_agent_t **self_p);
 static int s_recv_from_api (s_agent_t *self);
+static int s_recv_from_zyre (s_agent_t *self);
 static void s_check_directory (s_agent_t *self);
 
 
@@ -41,7 +42,8 @@ drops_agent_main (void *args, zctx_t *ctx, void *pipe)
     zstr_send (self->pipe, "OK");
 
     //  These are the sockets we will monitor for activity
-    zpoller_t *poller = zpoller_new (self->pipe, NULL);
+    zpoller_t *poller = zpoller_new (
+        self->pipe, zyre_socket (self->zyre), NULL);
 
     while (!zpoller_terminated (poller)) {
         //  Check directory once a second; this is a pretty nasty way of
@@ -50,8 +52,13 @@ drops_agent_main (void *args, zctx_t *ctx, void *pipe)
         void *which = zpoller_wait (poller, 1000);
         if (which == self->pipe)
             s_recv_from_api (self);
+        else
+        if (which == zyre_socket (self->zyre))
+            s_recv_from_zyre (self);
+        
         if (self->terminated)
             break;
+        
         s_check_directory (self);
     }
     zpoller_destroy (&poller);
@@ -70,6 +77,9 @@ s_agent_new (zctx_t *ctx, void *pipe)
     self->pipe = pipe;
     self->path = zstr_recv (self->pipe);
     self->dir = zdir_new (self->path, NULL);
+    self->zyre = zyre_new (self->ctx);
+    zyre_start (self->zyre);
+    zyre_join (self->zyre, "DROPS");
     return self;
 }
 
@@ -84,6 +94,7 @@ s_agent_destroy (s_agent_t **self_p)
     if (*self_p) {
         s_agent_t *self = *self_p;
         zdir_destroy (&self->dir);
+        zyre_destroy (&self->zyre);
         free (self->path);
         free (self);
         *self_p = NULL;
@@ -114,6 +125,18 @@ s_recv_from_api (s_agent_t *self)
 
 
 //  -------------------------------------------------------------------------
+//  Here we handle events coming from the Zyre node
+
+static int
+s_recv_from_zyre (s_agent_t *self)
+{
+    zmsg_t *msg = zyre_recv (self->zyre);
+    zmsg_
+    return 0;
+}
+
+
+//  -------------------------------------------------------------------------
 //  Check for any changes to directory
 
 static void
@@ -130,8 +153,13 @@ s_check_directory (s_agent_t *self)
 
     while (zlist_size (patches)) {
         zdir_patch_t *patch = (zdir_patch_t *) zlist_pop (patches);
-        printf ("path=%s vpath=%s op=%d\n",
-            zdir_patch_path (patch), zdir_patch_vpath (patch), zdir_patch_op (patch));
+        if (zdir_patch_op (patch) == patch_create) {
+            //  Shout new files to DROPS group
+            zmsg_t *msg = zmsg_new ();
+            zmsg_addstr (msg, "DROPS");
+            zmsg_addstr (msg, zdir_patch_vpath (patch));
+            zyre_shout (self->zyre, &msg);
+        }
         zdir_patch_destroy (&patch);
     }
     zlist_destroy (&patches);

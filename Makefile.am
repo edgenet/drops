@@ -1,8 +1,8 @@
 ACLOCAL_AMFLAGS = -I config
 
-SUBDIRS = src doc 
+SUBDIRS = src doc examples
 
-DIST_SUBDIRS = src doc 
+DIST_SUBDIRS = src doc examples
 
 EXTRA_DIST = \
 	builds/android/Android.mk \
