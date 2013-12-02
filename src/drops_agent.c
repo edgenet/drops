@@ -130,10 +130,26 @@ s_recv_from_api (s_agent_t *self)
 static int
 s_recv_from_zyre (s_agent_t *self)
 {
-    zmsg_t *msg = zyre_recv (self->zyre);
-    //TODO
-    zmsg_print (msg);
-    zmsg_destroy (&msg);
+    zyre_event_t *event = zyre_event_recv (self->zyre);
+    if (zyre_event_type (event) == ZYRE_EVENT_SHOUT
+    && streq (zyre_event_group (event), "DROPS")) {
+        zmsg_t *msg = zyre_event_msg (event);
+        char *operation = zmsg_popstr (msg);
+        if (streq (operation, "CREATE")) {
+            char *filename = zmsg_popstr (msg);
+            zframe_t *frame = zmsg_pop (msg);
+            zfile_t *file = zfile_new (self->path, filename);
+            zfile_output (file);
+            fwrite (zframe_data (frame), 1, zframe_size (frame),
+                    zfile_handle (file));
+            zfile_destroy (&file);
+            zframe_destroy (&frame);
+            zstr_send (self->pipe, filename);
+            free (filename);
+        }
+        free (operation);
+    }
+    zyre_event_destroy (&event);
     return 0;
 }
 
@@ -168,7 +184,6 @@ s_check_directory (s_agent_t *self)
                 zmsg_addstr (msg, zdir_patch_vpath (patch));
                 zmsg_add (msg, zframe_new (zchunk_data (chunk), zchunk_size (chunk)));
                 zchunk_destroy (&chunk);
-                printf ("I: sending new file: %s\n", zdir_patch_vpath (patch));
                 zyre_shout (self->zyre, "DROPS", &msg);
             }
         }

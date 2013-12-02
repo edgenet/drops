@@ -3,7 +3,7 @@
 #   Run selftests and check memory
 
 #   Valgrind command
-VG="valgrind --tool=memcheck --leak-check=summary --show-reachable=yes --suppressions=valgrind.supp"
+VG="valgrind --tool=memcheck --leak-check=full --show-reachable=yes --suppressions=valgrind.supp"
 
 gcc -g -o drops_selftest drops*.c ${CFLAGS} ${LDFLAGS} -DHAVE_CONFIG_H -lczmq -lzmq -lzyre -luuid -lsodium
 
