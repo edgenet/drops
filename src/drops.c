@@ -106,16 +106,34 @@ drops_test (bool verbose)
     //  @selftest
     //  Create temporary directory for test files
 #   define TESTDIR ".test_drops"
-    zsys_dir_create (TESTDIR);
+    
+    //  Create two drops instances and test some to and fro
+    zsys_dir_create (TESTDIR "/box1");
+    drops_t *drops1 = drops_new (TESTDIR "/box1");
+    zsys_dir_create (TESTDIR "/box2");
+    drops_t *drops2 = drops_new (TESTDIR "/box2");
 
-    //  Create and destroy an drops instance
-    drops_t *drops = drops_new (TESTDIR);
-    drops_destroy (&drops);
+    zclock_sleep (100);
+
+    zfile_t *file = zfile_new (TESTDIR "/box1", "bilbo");
+    int rc = zfile_output (file);
+    assert (rc == 0);
+    zchunk_t *chunk = zchunk_new (NULL, 100);
+    zchunk_fill (chunk, 0, 100);
+    rc = zfile_write (file, chunk, 1000000);
+    assert (rc == 0);
+    zchunk_destroy (&chunk);
+    zfile_close (file);
+
+
+    drops_destroy (&drops2);
+    drops_destroy (&drops1);
 
     //  Delete all test files
-    zdir_t *dir = zdir_new (TESTDIR, NULL);
-    zdir_remove (dir, true);
-    zdir_destroy (&dir);
+//     zdir_t *dir = zdir_new (TESTDIR, NULL);
+//     zdir_remove (dir, true);
+//     zdir_destroy (&dir);
     //  @end
+    zclock_sleep (100);
     printf ("OK\n");
 }

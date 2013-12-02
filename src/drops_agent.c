@@ -131,7 +131,8 @@ static int
 s_recv_from_zyre (s_agent_t *self)
 {
     zmsg_t *msg = zyre_recv (self->zyre);
-    zmsg_
+    zmsg_print (msg);
+    zmsg_destroy (&msg);
     return 0;
 }
 
@@ -155,10 +156,8 @@ s_check_directory (s_agent_t *self)
         zdir_patch_t *patch = (zdir_patch_t *) zlist_pop (patches);
         if (zdir_patch_op (patch) == patch_create) {
             //  Shout new files to DROPS group
-            zmsg_t *msg = zmsg_new ();
-            zmsg_addstr (msg, "DROPS");
-            zmsg_addstr (msg, zdir_patch_vpath (patch));
-            zyre_shout (self->zyre, &msg);
+            printf ("I: sending new file: %s\n", zdir_patch_vpath (patch));
+            zyre_shouts (self->zyre, "DROPS", zdir_patch_vpath (patch));
         }
         zdir_patch_destroy (&patch);
     }
