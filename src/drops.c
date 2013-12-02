@@ -106,33 +106,40 @@ drops_test (bool verbose)
     //  @selftest
     //  Create temporary directory for test files
 #   define TESTDIR ".test_drops"
-    
+
     //  Create two drops instances and test some to and fro
     zsys_dir_create (TESTDIR "/box1");
     drops_t *drops1 = drops_new (TESTDIR "/box1");
     zsys_dir_create (TESTDIR "/box2");
     drops_t *drops2 = drops_new (TESTDIR "/box2");
 
+    //  Give time for nodes to discover each other and interconnect
     zclock_sleep (100);
 
-    zfile_t *file = zfile_new (TESTDIR "/box1", "bilbo");
-    int rc = zfile_output (file);
-    assert (rc == 0);
-    zchunk_t *chunk = zchunk_new (NULL, 100);
-    zchunk_fill (chunk, 0, 100);
-    rc = zfile_write (file, chunk, 1000000);
-    assert (rc == 0);
-    zchunk_destroy (&chunk);
-    zfile_close (file);
+    FILE *output = fopen (TESTDIR "/box1/bilbo", "w");
+    fprintf (output, "Hello, world");
+    fclose (output);
 
+    //  Directory monitoring is once per second at present, so this gives
+    //  time for box1 to see its new file, and send it to box2
+    zclock_sleep (1200);
+
+    char buffer [256];
+    FILE *input = fopen (TESTDIR "/box2/bilbo", "r");
+    assert (input);
+    char *result = fgets (buffer, 256, input);
+    assert (result == buffer);
+    assert (streq (buffer, "Hello, world"));
+    fclose (input);
 
     drops_destroy (&drops2);
     drops_destroy (&drops1);
 
     //  Delete all test files
-//     zdir_t *dir = zdir_new (TESTDIR, NULL);
-//     zdir_remove (dir, true);
-//     zdir_destroy (&dir);
+    zdir_t *dir = zdir_new (TESTDIR, NULL);
+    zdir_remove (dir, true);
+    zdir_destroy (&dir);
+
     //  @end
     zclock_sleep (100);
     printf ("OK\n");

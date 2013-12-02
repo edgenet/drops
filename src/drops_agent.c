@@ -131,6 +131,7 @@ static int
 s_recv_from_zyre (s_agent_t *self)
 {
     zmsg_t *msg = zyre_recv (self->zyre);
+    //TODO
     zmsg_print (msg);
     zmsg_destroy (&msg);
     return 0;
@@ -156,8 +157,20 @@ s_check_directory (s_agent_t *self)
         zdir_patch_t *patch = (zdir_patch_t *) zlist_pop (patches);
         if (zdir_patch_op (patch) == patch_create) {
             //  Shout new files to DROPS group
-            printf ("I: sending new file: %s\n", zdir_patch_vpath (patch));
-            zyre_shouts (self->zyre, "DROPS", zdir_patch_vpath (patch));
+            //  Stupidest possible approach: send whole file as one frame
+            //  Truncate file at arbitrary limit of 10MB
+            zfile_t *file = zdir_patch_file (patch);
+            if (zfile_input (file) == 0) {
+                zchunk_t *chunk = zfile_read (file, 10 * 1024 * 1024, 0);
+                assert (chunk);
+                zmsg_t *msg = zmsg_new ();
+                zmsg_addstr (msg, "CREATE");
+                zmsg_addstr (msg, zdir_patch_vpath (patch));
+                zmsg_add (msg, zframe_new (zchunk_data (chunk), zchunk_size (chunk)));
+                zchunk_destroy (&chunk);
+                printf ("I: sending new file: %s\n", zdir_patch_vpath (patch));
+                zyre_shout (self->zyre, "DROPS", &msg);
+            }
         }
         zdir_patch_destroy (&patch);
     }
