@@ -77,7 +77,7 @@ s_agent_new (zctx_t *ctx, void *pipe)
     self->pipe = pipe;
     self->path = zstr_recv (self->pipe);
     self->dir = zdir_new (self->path, NULL);
-    self->zyre = zyre_new (self->ctx);
+    self->zyre = zyre_new ();
     zyre_start (self->zyre);
     zyre_join (self->zyre, "DROPS");
     return self;
@@ -130,7 +130,7 @@ s_recv_from_api (s_agent_t *self)
 static int
 s_recv_from_zyre (s_agent_t *self)
 {
-    zyre_event_t *event = zyre_event_recv (self->zyre);
+    zyre_event_t *event = zyre_event_new (self->zyre);
     if (zyre_event_type (event) == ZYRE_EVENT_SHOUT
     && streq (zyre_event_group (event), "DROPS")) {
         zmsg_t *msg = zyre_event_msg (event);
