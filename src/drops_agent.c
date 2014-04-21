@@ -135,13 +135,13 @@ s_recv_from_zyre (s_agent_t *self)
     && streq (zyre_event_group (event), "DROPS")) {
         zmsg_t *msg = zyre_event_msg (event);
         char *operation = zmsg_popstr (msg);
+        
         if (streq (operation, "CREATE")) {
             char *filename = zmsg_popstr (msg);
             zframe_t *frame = zmsg_pop (msg);
             zfile_t *file = zfile_new (self->path, filename);
             zfile_output (file);
-            fwrite (zframe_data (frame), 1, zframe_size (frame),
-                    zfile_handle (file));
+            fwrite (zframe_data (frame), 1, zframe_size (frame), zfile_handle (file));
             zfile_destroy (&file);
             zframe_destroy (&frame);
             zstr_send (self->pipe, filename);
