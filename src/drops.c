@@ -26,6 +26,7 @@ struct _drops_t {
 
 //  ---------------------------------------------------------------------
 //  Constructor, creates a new drops agent
+//  Note: this should be rebuilt using CZMQ zactors
 
 drops_t *
 drops_new (const char *path)
