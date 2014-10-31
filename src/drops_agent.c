@@ -77,7 +77,7 @@ s_agent_new (zctx_t *ctx, void *pipe)
     self->pipe = pipe;
     self->path = zstr_recv (self->pipe);
     self->dir = zdir_new (self->path, NULL);
-    self->zyre = zyre_new ();
+    self->zyre = zyre_new (NULL);
     zyre_start (self->zyre);
     zyre_join (self->zyre, "DROPS");
     return self;
