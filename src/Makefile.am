@@ -22,10 +22,14 @@ bin_PROGRAMS = drops_selftest
 drops_selftest_LDADD = libdrops.la
 drops_selftest_SOURCES = drops_selftest.c
 
+libdrops_la_LDFLAGS = \
+  -version-info @LTVER@ \
+  $(LIBTOOL_EXTRA_LDFLAGS)
+
 if ON_MINGW
-libdrops_la_LDFLAGS = -no-undefined -avoid-version -version-info @LTVER@
-else
-libdrops_la_LDFLAGS = -version-info @LTVER@
+libdrops_la_LDFLAGS += \
+  -no-undefined
+  -avoid-version
 endif
 
 TESTS = drops_selftest
