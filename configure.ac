@@ -135,7 +135,7 @@ AC_CHECK_LIB(zyre, zctx_test,
 
 AC_MSG_CHECKING([whether libzyre installation works])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <zyre.h>],
-    [zctx_test (0);]) ],
+    [zyre_test (0);]) ],
     [AC_MSG_RESULT([yes])],
     [AC_MSG_ERROR([no. Please specify libzyre installation prefix using --with-zyre])])
 
