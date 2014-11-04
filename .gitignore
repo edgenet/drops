@@ -48,6 +48,9 @@ src/stamp-h1
 src/test-suite.log
 examples/dropsd
 
+# qt-android build results
+builds/qt-android/prefix
+
 ## Android
 
 # generated directories
