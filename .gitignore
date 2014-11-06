@@ -33,6 +33,8 @@ doc/*.7
 libtool
 .deps
 .libs
+test-suite.log
+src/.dirstamp
 src/Makefile
 src/Makefile.in
 src/drops_agent.lo
@@ -45,7 +47,6 @@ src/platform.h
 src/platform.h.in
 src/platform.h.in~
 src/stamp-h1
-src/test-suite.log
 examples/dropsd
 
 # qt-android build results
