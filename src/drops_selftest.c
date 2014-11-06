@@ -1,14 +1,22 @@
 /*  =========================================================================
-    drops_selftest - run self tests
+    drops_selftest.c - run selftests
 
-    Copyright the Contributors as noted in the AUTHORS file.
-    This file is part of edgenet and is licensed per the LICENSE file.
+    Runs all selftests.
+
+    -------------------------------------------------------------------------
+
+    #################################################################
+    #   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
+    #   Please read the README.txt file in the model directory.     #
+    #################################################################
     =========================================================================
 */
 
+#include "../include/drops.h"
 #include "drops_classes.h"
 
-int main (int argc, char *argv [])
+int
+main (int argc, char *argv [])
 {
     bool verbose;
     if (argc == 2 && streq (argv [1], "-v"))
@@ -16,9 +24,17 @@ int main (int argc, char *argv [])
     else
         verbose = false;
 
-    printf ("Running self tests...\n");
-    drops_agent_test (verbose);
-    drops_test (verbose);
+    printf ("Running DROPS selftests...\n");
+
+    drops_test (verbose); 
+    drops_agent_test (verbose); 
+
     printf ("Tests passed OK\n");
     return 0;
 }
+/*
+    #################################################################
+    #   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
+    #   Please read the README.txt file in the model directory.     #
+    #################################################################
+*/

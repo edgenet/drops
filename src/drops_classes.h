@@ -1,15 +1,16 @@
 /*  =========================================================================
-    drops_classes - all classes in proper order for building
+    drops_classes - all private classes
 
-    Copyright the Contributors as noted in the AUTHORS file.
-    This file is part of edgenet and is licensed per the LICENSE file.
+    #################################################################
+    #   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
+    #   Please read the README.txt file in the model directory.     #
+    #################################################################
     =========================================================================
 */
 
 #ifndef __DROPS_CLASSES_H_INCLUDED__
 #define __DROPS_CLASSES_H_INCLUDED__
 
-#include "../include/drops.h"
 #include "drops_agent.h"
 
 #endif
