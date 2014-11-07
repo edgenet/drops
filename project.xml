@@ -1,13 +1,12 @@
 <project 
     name = "drops"
     description = "edgenet file sharing concept"
-    script = "project.gsl"
+    script = "zproject.gsl"
     email = "zeromq-dev@lists.zeromq.org"
     >
+    <include filename = "license.xml" />
     <version major = "0" minor = "0" patch = "1" />
-    <use project = "czmq" />
     <use project = "zyre" />
-    
     <class name = "drops" />
     <class name = "drops_agent" private = "1" />
 </project>

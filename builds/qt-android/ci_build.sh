@@ -16,11 +16,11 @@ export TOOLCHAIN_NAME="arm-linux-androideabi-4.8"
 export TOOLCHAIN_HOST="arm-linux-androideabi"
 export TOOLCHAIN_ARCH="arm"
 
-export ZMQ_ROOT="/tmp/zmq"
-git clone https://github.com/zeromq/libzmq $ZMQ_ROOT
-
 export CZMQ_ROOT="/tmp/czmq"
 git clone https://github.com/zeromq/czmq $CZMQ_ROOT
+
+export ZMQ_ROOT="/tmp/zmq"
+git clone https://github.com/zeromq/libzmq $ZMQ_ROOT
 
 export ZYRE_ROOT="/tmp/zyre"
 git clone https://github.com/zeromq/zyre $ZYRE_ROOT
