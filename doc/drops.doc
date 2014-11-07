@@ -1,0 +1,66 @@
+#### drops - start/stop drops file sharing service
+
+To be written.
+
+
+This is the class interface:
+
+    //  Constructor, creates a new drops agent
+    CZMQ_EXPORT drops_t *
+        drops_new (const char *path);
+    
+    //  Destructor, ends and destroys a drops service
+    CZMQ_EXPORT void
+        drops_destroy (drops_t **self_p);
+    
+    //  Receive next message from drops agent
+    CZMQ_EXPORT zmsg_t *
+        drops_recv (drops_t *self);
+    
+    //  Return handle to the drops agent, for polling
+    CZMQ_EXPORT void *
+        drops_socket (drops_t *self);
+    
+    //  Self test of this class
+    CZMQ_EXPORT void
+        drops_test (bool verbose);
+
+This is the class self test code:
+
+    //  Create temporary directory for test files
+    #   define TESTDIR ".test_drops"
+    
+    //  Create two drops instances and test some to and fro
+    zsys_dir_create (TESTDIR "/box1");
+    drops_t *drops1 = drops_new (TESTDIR "/box1");
+    zsys_dir_create (TESTDIR "/box2");
+    drops_t *drops2 = drops_new (TESTDIR "/box2");
+    
+    //  Give time for nodes to discover each other and interconnect
+    zclock_sleep (100);
+    
+    FILE *output = fopen (TESTDIR "/box1/bilbo", "w");
+    fprintf (output, "Hello, world");
+    fclose (output);
+    
+    //  Directory monitoring is once per second at present, so this gives
+    //  time for box1 to see its new file, and send it to box2
+    zclock_sleep (1200);
+    
+    char buffer [256];
+    FILE *input = fopen (TESTDIR "/box2/bilbo", "r");
+    assert (input);
+    char *result = fgets (buffer, 256, input);
+    assert (result == buffer);
+    assert (streq (buffer, "Hello, world"));
+    fclose (input);
+    
+    drops_destroy (&drops2);
+    drops_destroy (&drops1);
+    
+    //  Delete all test files
+    zdir_t *dir = zdir_new (TESTDIR, NULL);
+    zdir_remove (dir, true);
+    zdir_destroy (&dir);
+    
+
