@@ -1,41 +1,24 @@
 /*  =========================================================================
-    drops - start/stop drops file sharing service
+    drops - another protocol for sharing stuff
 
-    Copyright the Contributors as noted in the AUTHORS file.
-    This file is part of edgenet and is licensed per the LICENSE file.
-    =========================================================================*/
+    Copyright (c) the Contributors as noted in the AUTHORS file.
+    This file is part of zbroker, the ZeroMQ broker project.
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+    =========================================================================
+*/
 
 #ifndef __DROPS_H_INCLUDED__
 #define __DROPS_H_INCLUDED__
-
-//  DROPS version macros for compile-time API detection
-
-#define DROPS_VERSION_MAJOR 0
-#define DROPS_VERSION_MINOR 0
-#define DROPS_VERSION_PATCH 1
-
-#define DROPS_MAKE_VERSION(major, minor, patch) \
-    ((major) * 10000 + (minor) * 100 + (patch))
-#define DROPS_VERSION \
-    DROPS_MAKE_VERSION(DROPS_VERSION_MAJOR, DROPS_VERSION_MINOR, DROPS_VERSION_PATCH)
-
-#include <czmq.h>
-#if CZMQ_VERSION < 20100
-#   error "drops needs CZMQ/2.1.0 or later"
-#endif
-
-#include <zyre.h>
-#if ZYRE_VERSION < 10100
-#   error "drops needs Zyre/1.1.0 or later"
-#endif
-
-//  The public API consists of the "drops_t" class
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct _drops_t drops_t;
+//  Include the library file with typdefs, public includes and public constants    
+#include "drops_library.h"
 
 //  @interface
 //  Constructor, creates a new drops agent
@@ -62,6 +45,5 @@ CZMQ_EXPORT void
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif

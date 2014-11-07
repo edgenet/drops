@@ -1,6 +1,12 @@
 /*  =========================================================================
     drops - DROPS wrapper
 
+    Copyright (c) the Contributors as noted in the AUTHORS file.       
+    This file is part of zbroker, the ZeroMQ broker project.           
+                                                                       
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.           
 
     #################################################################
     #   GENERATED SOURCE CODE, DO NOT EDIT EXCEPT EXPERIMENTALLY    #
@@ -9,11 +15,10 @@
     =========================================================================
 */
 
-#ifndef __DROPS_H_INCLUDED__
-#define __DROPS_H_INCLUDED__
+#ifndef __DROPS_LIBRARY_H_INCLUDED__
+#define __DROPS_LIBRARY_H_INCLUDED__
 
 //  External dependencies
-#include <czmq.h>
 #include <zyre.h>
 
 //  DROPS version macros for compile-time API detection
@@ -45,7 +50,6 @@ typedef struct _drops_t drops_t;
 
 
 //  Public API classes
-
 
 #endif
 /*

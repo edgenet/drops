@@ -33,7 +33,10 @@ doc/*.7
 libtool
 .deps
 .libs
+<<<<<<< HEAD
 test-suite.log
+=======
+>>>>>>> Problem: wasting time with clunky use of CZMQ project scripts
 src/.dirstamp
 src/Makefile
 src/Makefile.in

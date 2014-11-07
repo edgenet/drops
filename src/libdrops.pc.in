@@ -11,7 +11,7 @@ includedir=@includedir@
 Name: libdrops
 Description: edgenet file sharing concept
 Version: @VERSION@
-Requires: libzmq libczmq libzyre
+Requires: libczmq libzmq libzyre
 Libs: -L${libdir} -ldrops
 Cflags: -I${includedir}
 
