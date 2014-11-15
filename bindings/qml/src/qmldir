@@ -1,0 +1,2 @@
+module QmlDrops
+plugin qml_drops

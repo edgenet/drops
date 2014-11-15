@@ -1,0 +1,35 @@
+
+<class name = "drops" >
+    another protocol for sharing stuff
+    
+    <include filename = "../license.xml" />
+    
+    <constructor>
+        Constructor, creates a new drops agent
+        
+        <argument name = "path" type = "string" />
+    </constructor>
+    
+    <destructor>
+        Destructor, ends and destroys a drops service
+    </destructor>
+    
+    <method name = "recv">
+        Receive next message from drops agent
+        
+        <return type = "zmsg" />
+    </method>
+    
+    <method name = "socket">
+        Return handle to the drops agent, for polling
+        
+        <return type = "anything" />
+    </method>
+    
+    <method name = "test" singleton = "1">
+        Self test of this class
+        
+        <argument name = "verbose" type = "boolean" />
+    </method>
+    
+</class>
