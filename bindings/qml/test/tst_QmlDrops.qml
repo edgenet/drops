@@ -9,8 +9,9 @@ TestCase {
   id: test
   name: "QmlDrops"
   
-  function test_it() {
-    verify(true)
+  function test_test() {
+    var verbose = false
+    QmlDrops.test(verbose)
   }
 }
 
