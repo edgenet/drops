@@ -55,15 +55,14 @@ public slots:
     };
 
     //  Constructor, creates a new drops agent
-    QmlDrops *construct (const QString &qmlPath) {
+    QmlDrops *construct (const QString &path) {
         QmlDrops *qmlSelf = new QmlDrops ();
-        qmlSelf->self = drops_new (qmlPath.toUtf8().data());
+        qmlSelf->self = drops_new (path.toUtf8().data());
         return qmlSelf;
     };
 
     //  Destructor, ends and destroys a drops service
-    void 
-destruct (QmlDrops *qmlSelf) {
+    void destruct (QmlDrops *qmlSelf) {
         return drops_destroy (&qmlSelf->self);
     };
 };

@@ -11,6 +11,11 @@ AM_CPPFLAGS = \
     ${zyre_CFLAGS} \
     -I$(srcdir)/include
 
+project_libs = \
+    ${zmq_LIBS} \
+    ${czmq_LIBS} \
+    ${zyre_LIBS}
+
 SUBDIRS =
 SUBDIRS += doc
 

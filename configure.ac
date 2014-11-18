@@ -76,7 +76,7 @@ PREVIOUS_LIBS="${LIBS}"
 was_zmq_check_lib_detected=no
 
 PKG_CHECK_MODULES([zmq], [libzmq >= 2.2.0],,
-    [AC_MSG_ERROR([Cannot find required package for libzmq.       Note, pkg-config is required due to specified version >= 2.2.0])
+    [AC_MSG_ERROR([Cannot find required package for libzmq. Note, pkg-config is required due to specified version >= 2.2.0])
   ])
 
 if test "x$was_zmq_check_lib_detected" = "xno"; then
@@ -88,7 +88,7 @@ fi
 was_czmq_check_lib_detected=no
 
 PKG_CHECK_MODULES([czmq], [libczmq >= 3.0.0],,
-    [AC_MSG_ERROR([Cannot find required package for libczmq.      Note, pkg-config is required due to specified version >= 3.0.0])
+    [AC_MSG_ERROR([Cannot find required package for libczmq. Note, pkg-config is required due to specified version >= 3.0.0])
   ])
 
 if test "x$was_czmq_check_lib_detected" = "xno"; then
